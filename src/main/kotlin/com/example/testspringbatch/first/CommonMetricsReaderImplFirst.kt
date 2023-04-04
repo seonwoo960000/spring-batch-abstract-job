@@ -1,19 +1,19 @@
 package com.example.testspringbatch.first
 
-import com.example.testspringbatch.common.AbstractItem
-import com.example.testspringbatch.common.AbstractItemReader
+import com.example.testspringbatch.common.CommonMetricsExtractable
+import com.example.testspringbatch.common.CommonMetricsReader
 
-open class AbstractItemReaderImplFirst(jobParam: JobParamFirst) : AbstractItemReader() {
+open class CommonMetricsReaderImplFirst(jobParam: JobParamFirst) : CommonMetricsReader() {
 
     init {
         println("job param: $jobParam, ${jobParam.name}")
     }
     var i = 0
-    override fun read(): AbstractItem? {
+    override fun read(): CommonMetricsExtractable? {
         println("AbstractItemReaderImplFirst reading")
 
         if (i == 50) return null
-        return AbstractItemImplFirst(
+        return CommonMetricsExtractableImplFirst(
             name = "first item",
             age = i++,
             height = 180 + i

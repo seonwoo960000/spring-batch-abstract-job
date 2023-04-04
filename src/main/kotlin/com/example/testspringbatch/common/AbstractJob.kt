@@ -13,7 +13,7 @@ abstract class AbstractJob(
     private val stepBuilderFactory: StepBuilderFactory
 ) {
 
-    open fun abstractJob(jobName: String): Job {
+    fun abstractJob(jobName: String): Job {
         return jobBuilderFactory.get(jobName)
             .start(abstractStep())
             .build()
@@ -23,7 +23,7 @@ abstract class AbstractJob(
     @JobScope
     open fun abstractStep(): Step {
         return stepBuilderFactory.get("step")
-            .chunk<AbstractItem, AbstractItem>(5)
+            .chunk<CommonMetricsExtractable, CommonMetricsExtractable>(5)
             .reader(abstractReader())
             .writer(abstractWriter())
             .build()
@@ -31,9 +31,9 @@ abstract class AbstractJob(
 
     @Bean
     @StepScope
-    abstract fun abstractReader(): AbstractItemReader
+    abstract fun abstractReader(): CommonMetricsReader
 
     @Bean
     @StepScope
-    abstract fun abstractWriter(): AbstractItemWriter
+    abstract fun abstractWriter(): CommonMetricsWriter
 }
